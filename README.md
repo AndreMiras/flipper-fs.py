@@ -1,5 +1,7 @@
 # FlipperFS
 
+[![Tests](https://github.com/AndreMiras/flipper-fs.py/actions/workflows/tests.yml/badge.svg)](https://github.com/AndreMiras/flipper-fs.py/actions/workflows/tests.yml)
+
 **Reliable Flipper Zero filesystem operations via serial CLI**
 
 FlipperFS is a Python library that provides direct, reliable access to the Flipper Zero filesystem through serial communication at 230400 baud. Unlike other libraries with buggy storage operations, FlipperFS uses the proven serial CLI interface for rock-solid file operations.
@@ -23,9 +25,17 @@ pip install flipperfs
 ### Development Installation
 
 ```bash
-git clone https://github.com/AndreMiras/flipper-fs.py.git
-cd flipper-fs
+# Clone the repository
+git clone https://github.com/AndreMiras/flipper-fs.py
+cd flipper-fs.py
+
+# Install in development mode with dev dependencies
 pip install -e ".[dev]"
+```
+
+**For reproducible CI/CD builds:**
+```bash
+pip install -r requirements-dev.txt
 ```
 
 ## Quick Start
