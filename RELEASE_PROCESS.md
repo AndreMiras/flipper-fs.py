@@ -49,7 +49,7 @@ Commit the changelog update:
 
 ```bash
 git add CHANGELOG.md
-git commit -m "Update CHANGELOG for v1.0.1 release"
+git commit -m ":memo: Update CHANGELOG for v1.0.1 release"
 git push origin main
 ```
 
@@ -153,7 +153,7 @@ git pull origin main
 
 # Update CHANGELOG.md, then:
 git add CHANGELOG.md
-git commit -m "Update CHANGELOG for v$VERSION release"
+git commit -m ":memo: Update CHANGELOG for v$VERSION release"
 git push origin main
 
 # Create and push tag
