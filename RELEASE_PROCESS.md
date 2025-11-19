@@ -147,17 +147,18 @@ FlipperFS uses **setuptools-scm** for automatic version management:
 
 ```bash
 # Standard release workflow
+VERSION=X.Y.Z
 git checkout main
 git pull origin main
 
 # Update CHANGELOG.md, then:
 git add CHANGELOG.md
-git commit -m "Update CHANGELOG for vX.Y.Z release"
+git commit -m "Update CHANGELOG for v$VERSION release"
 git push origin main
 
 # Create and push tag
-git tag -a vX.Y.Z -m "Release X.Y.Z"
-git push origin vX.Y.Z
+git tag -a v$VERSION -m "Release $VERSION"
+git push origin v$VERSION
 
 # Monitor at: https://github.com/AndreMiras/flipper-fs.py/actions
 # Verify at: https://pypi.org/project/flipper-fs/
