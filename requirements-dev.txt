@@ -17,7 +17,7 @@ packaging==25.0
     #   build
     #   pytest
 pip-tools==7.5.2
-    # via flipperfs (pyproject.toml)
+    # via flipper-fs (pyproject.toml)
 pluggy==1.6.0
     # via
     #   pytest
@@ -29,13 +29,15 @@ pyproject-hooks==1.2.0
     #   build
     #   pip-tools
 pyserial==3.5
-    # via flipperfs (pyproject.toml)
+    # via flipper-fs (pyproject.toml)
 pytest==9.0.1
     # via
-    #   flipperfs (pyproject.toml)
+    #   flipper-fs (pyproject.toml)
     #   pytest-cov
 pytest-cov==7.0.0
-    # via flipperfs (pyproject.toml)
+    # via flipper-fs (pyproject.toml)
+ruff==0.14.5
+    # via flipper-fs (pyproject.toml)
 wheel==0.45.1
     # via pip-tools
 

@@ -260,14 +260,20 @@ pytest
 pytest --cov=flipperfs --cov-report=html
 ```
 
-### Code Formatting
+### Code Formatting and Linting
 
 ```bash
 # Format code
-black flipperfs tests examples
+ruff format flipperfs tests examples
 
-# Check style
-flake8 flipperfs tests examples
+# Check formatting
+ruff format --check flipperfs tests examples
+
+# Lint code
+ruff check flipperfs tests examples
+
+# Auto-fix linting issues
+ruff check --fix flipperfs tests examples
 
 # Type checking
 mypy flipperfs
