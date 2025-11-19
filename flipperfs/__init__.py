@@ -17,12 +17,13 @@ from .exceptions import (
     ConnectionError,
     FileNotFoundError,
     WriteError,
-    ReadError
+    ReadError,
 )
 
 # Version is managed by setuptools-scm from git tags
 try:
     from importlib.metadata import version
+
     __version__ = version("flipper-fs")
 except Exception:
     # Fallback for development environments without proper installation
@@ -37,12 +38,13 @@ __all__ = [
     "ConnectionError",
     "FileNotFoundError",
     "WriteError",
-    "ReadError"
+    "ReadError",
 ]
 
 # Optional Sub-GHz module
 try:
     from .extras.subghz import SubGhzStorage
+
     __all__.append("SubGhzStorage")
 except ImportError:
     SubGhzStorage = None

@@ -3,7 +3,6 @@
 import serial
 import time
 import logging
-from typing import Optional
 from .exceptions import ConnectionError
 
 
@@ -13,9 +12,9 @@ class SerialCLI:
     DEFAULT_BAUD_RATE = 230400
     DEFAULT_TIMEOUT = 1
     COMMAND_TIMEOUT = 3
-    PROMPT = b'>:'
+    PROMPT = b">:"
 
-    def __init__(self, port: str = '/dev/ttyACM0', baud_rate: int = None):
+    def __init__(self, port: str = "/dev/ttyACM0", baud_rate: int = None):
         """Initialize serial connection to Flipper."""
         self.port = port
         self.baud_rate = baud_rate or self.DEFAULT_BAUD_RATE
@@ -32,7 +31,7 @@ class SerialCLI:
                 timeout=self.DEFAULT_TIMEOUT,
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
-                stopbits=serial.STOPBITS_ONE
+                stopbits=serial.STOPBITS_ONE,
             )
             time.sleep(0.5)  # Stabilization delay
             self.serial.reset_input_buffer()
@@ -54,7 +53,7 @@ class SerialCLI:
         self.serial.flush()
 
         # Read response until prompt
-        response = b''
+        response = b""
         start_time = time.time()
 
         while time.time() - start_time < timeout:
@@ -66,7 +65,7 @@ class SerialCLI:
                     break
             time.sleep(0.05)
 
-        decoded = response.decode('utf-8', errors='replace')
+        decoded = response.decode("utf-8", errors="replace")
         self.logger.debug(f"Response: {decoded[:100]}...")
         return decoded
 
@@ -79,7 +78,7 @@ class SerialCLI:
 
     def read_available(self, timeout: float = 1) -> bytes:
         """Read all available data within timeout."""
-        data = b''
+        data = b""
         start_time = time.time()
 
         while time.time() - start_time < timeout:

@@ -6,7 +6,7 @@ from flipperfs.exceptions import (
     ConnectionError,
     FileNotFoundError,
     WriteError,
-    ReadError
+    ReadError,
 )
 
 
