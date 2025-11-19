@@ -2,6 +2,12 @@
 
 A Python library for reliable filesystem operations on Flipper Zero devices
 using direct serial communication at 230400 baud.
+
+This package is published on PyPI as 'flipper-fs'. Install with:
+    pip install flipper-fs
+
+Import as:
+    import flipperfs
 """
 
 from .serial_cli import SerialCLI

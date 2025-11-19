@@ -19,7 +19,13 @@ FlipperFS is a Python library that provides direct, reliable access to the Flipp
 ## Installation
 
 ```bash
-pip install flipperfs
+pip install flipper-fs
+```
+
+Import as:
+
+```python
+import flipperfs
 ```
 
 ### Development Installation
@@ -338,5 +344,5 @@ Developed to provide reliable filesystem operations for Flipper Zero devices.
 
 - **Repository**: https://github.com/AndreMiras/flipper-fs.py
 - **Issues**: https://github.com/AndreMiras/flipper-fs.py/issues
-- **PyPI**: https://pypi.org/project/flipperfs/
+- **PyPI**: https://pypi.org/project/flipper-fs/
 - **Flipper Zero**: https://flipperzero.one/
