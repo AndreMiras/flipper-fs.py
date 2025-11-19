@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=45", "wheel"]
+requires = ["setuptools>=45", "wheel", "setuptools-scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "flipper-fs"
-version = "1.0.0"
+dynamic = ["version"]
 description = "Flipper Zero filesystem operations via serial CLI"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -49,3 +49,7 @@ python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
+
+[tool.setuptools_scm]
+# PyPI-compatible versioning (no local version identifiers)
+local_scheme = "no-local-version"

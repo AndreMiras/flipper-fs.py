@@ -20,7 +20,13 @@ from .exceptions import (
     ReadError
 )
 
-__version__ = "1.0.0"
+# Version is managed by setuptools-scm from git tags
+try:
+    from importlib.metadata import version
+    __version__ = version("flipper-fs")
+except Exception:
+    # Fallback for development environments without proper installation
+    __version__ = "unknown"
 __author__ = "Andre Miras"
 __license__ = "MIT"
 
