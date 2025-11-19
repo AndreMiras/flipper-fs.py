@@ -1,6 +1,7 @@
 # FlipperFS
 
 [![Tests](https://github.com/AndreMiras/flipper-fs.py/actions/workflows/tests.yml/badge.svg)](https://github.com/AndreMiras/flipper-fs.py/actions/workflows/tests.yml)
+[![PyPI version](https://badge.fury.io/py/flipper-fs.svg)](https://badge.fury.io/py/flipper-fs)
 
 **Reliable Flipper Zero filesystem operations via serial CLI**
 
