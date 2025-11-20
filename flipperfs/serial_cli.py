@@ -23,20 +23,42 @@ class SerialCLI:
         self.connect()
 
     def connect(self):
-        """Establish serial connection."""
+        """Establish serial connection (supports serial ports and network URLs)."""
         try:
-            self.serial = serial.Serial(
-                port=self.port,
-                baudrate=self.baud_rate,
-                timeout=self.DEFAULT_TIMEOUT,
-                bytesize=serial.EIGHTBITS,
-                parity=serial.PARITY_NONE,
-                stopbits=serial.STOPBITS_ONE,
+            # Normalize tcp:// to socket:// (pyserial uses socket://)
+            port = self.port
+            if port.startswith("tcp://"):
+                port = port.replace("tcp://", "socket://", 1)
+                self.logger.debug(f"Normalized {self.port} to {port}")
+
+            # Detect connection type
+            is_network = any(
+                port.startswith(prefix)
+                for prefix in ["socket://", "rfc2217://", "loop://"]
             )
+
+            if is_network:
+                # Network connection - use serial_for_url()
+                # Note: baudrate parameter ignored for network connections
+                self.serial = serial.serial_for_url(port, timeout=self.DEFAULT_TIMEOUT)
+                self.logger.info(f"Connected to {self.port} (network)")
+            else:
+                # Traditional serial port
+                self.serial = serial.Serial(
+                    port=self.port,
+                    baudrate=self.baud_rate,
+                    timeout=self.DEFAULT_TIMEOUT,
+                    bytesize=serial.EIGHTBITS,
+                    parity=serial.PARITY_NONE,
+                    stopbits=serial.STOPBITS_ONE,
+                )
+                self.logger.info(f"Connected to {self.port} at {self.baud_rate} baud")
+
+            # Common post-connection setup
             time.sleep(0.5)  # Stabilization delay
             self.serial.reset_input_buffer()
             self.serial.reset_output_buffer()
-            self.logger.info(f"Connected to {self.port} at {self.baud_rate} baud")
+
         except serial.SerialException as e:
             raise ConnectionError(f"Failed to connect to {self.port}: {e}")
 

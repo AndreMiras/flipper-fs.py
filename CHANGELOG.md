@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Network connection support via tcp://, socket://, rfc2217://, and loop:// URLs
+
+### Changed
+- Migrated from Black and Flake8 to Ruff for linting and formatting (10-100x faster)
+- Modernized pyproject.toml with SPDX license identifier format
+- Updated setuptools minimum version requirement to 61.0.0
+- Modernized package discovery configuration using setuptools.packages.find
+
+### Fixed
+- License deprecation warnings in pyproject.toml configuration
+
 ## [1.0.1] - 2025-11-19
 
 ### Changed

@@ -112,6 +112,42 @@ with SubGhzStorage(port='/dev/ttyACM0') as subghz:
     subghz.remove(temp_path)
 ```
 
+## Network Connections
+
+flipper-fs supports connecting to Flipper Zero over network via socat or ser2net, enabling usage in containerized environments (Docker/Podman) and remote access scenarios.
+
+### Using socat (recommended for Docker)
+
+On the host machine with Flipper Zero connected:
+
+```bash
+# Bridge /dev/ttyACM0 to TCP port 3333
+socat TCP-LISTEN:3333,reuseaddr,fork FILE:/dev/ttyACM0,b230400,raw,echo=0
+```
+
+In your application (can be in Docker container):
+
+```python
+from flipperfs import FlipperStorage
+
+# Connect via network (tcp:// and socket:// are equivalent)
+storage = FlipperStorage(port='tcp://172.17.0.1:3333')
+# or
+storage = FlipperStorage(port='socket://172.17.0.1:3333')
+
+# Works the same as serial connection
+files = storage.list('/ext/subghz')
+```
+
+### Supported URL formats
+
+- `tcp://host:port` - Raw TCP socket (alias for socket://)
+- `socket://host:port` - Raw TCP socket
+- `rfc2217://host:port` - RFC2217 (Telnet-based)
+- `/dev/ttyACM0` - Direct serial port (traditional)
+
+See [pyserial URL handlers](https://pyserial.readthedocs.io/en/latest/url_handlers.html) for more options.
+
 ## API Reference
 
 ### FlipperStorage
