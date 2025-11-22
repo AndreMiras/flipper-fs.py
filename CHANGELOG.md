@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2025-11-22
+
+### Added
+- Hardware integration tests with real Flipper Zero device I/O
+- Integration test support for both USB serial and network connections (tcp://)
+- Automatic test skipping when hardware is not available
+- Comprehensive testing documentation in README
+
 ### Changed
 - **PERFORMANCE**: Optimized serial communication timing delays for 10x faster write operations
   - Connection stabilization: 0.5s → 0.05s (90% reduction)
@@ -16,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Write operations now complete in ~0.08s (down from ~0.80s)
   - Validated with 20+ consecutive test runs on real hardware
   - No reliability impact - 100% test success rate maintained
+- Optimized serial read operations for better performance
 
 ## [1.1.0] - 2025-11-20
 
@@ -74,6 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Contributing guidelines
 - MIT License
 
+[1.1.1]: https://github.com/yourusername/flipper-fs/releases/tag/v1.1.1
 [1.1.0]: https://github.com/yourusername/flipper-fs/releases/tag/v1.1.0
 [1.0.1]: https://github.com/yourusername/flipper-fs/releases/tag/v1.0.1
 [1.0.0]: https://github.com/yourusername/flipper-fs/releases/tag/v1.0.0
