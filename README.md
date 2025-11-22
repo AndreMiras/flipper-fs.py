@@ -285,16 +285,78 @@ On Windows:
 
 ### Running Tests
 
+#### Unit Tests (Default)
+
 ```bash
 # Install dev dependencies
 pip install -e ".[dev]"
 
-# Run tests
+# Run all tests (integration tests skip without hardware)
 pytest
 
 # Run with coverage
 pytest --cov=flipperfs --cov-report=html
+
+# Run only unit tests (exclude integration tests)
+pytest tests/flipperfs/
 ```
+
+All unit tests use mocked serial connections and run without hardware.
+
+#### Integration Tests (Optional - Requires Hardware)
+
+Integration tests verify real communication with Flipper Zero devices. They run automatically if hardware is available, or skip gracefully if not.
+
+**Requirements:**
+- Flipper Zero device connected via USB serial or network
+- Serial port permissions (Linux: user in `dialout` group)
+- Network bridge configured (optional, for Docker/remote scenarios)
+
+**Running with USB Serial:**
+
+```bash
+# Find your Flipper's serial port
+ls /dev/ttyACM*  # Linux
+ls /dev/cu.usbmodem*  # macOS
+
+# Enable integration tests
+export FLIPPER_PORT=/dev/ttyACM0
+
+# Run all tests (includes integration tests)
+pytest
+
+# Run only integration tests
+pytest tests/test_integration.py -v
+```
+
+**Running with Network Connection:**
+
+For Docker/containerized environments, use socat to bridge serial to network:
+
+```bash
+# On host with Flipper connected
+socat TCP-LISTEN:3333,reuseaddr,fork FILE:/dev/ttyACM0,b230400,raw,echo=0
+
+# In container or another machine
+export FLIPPER_PORT=tcp://172.17.0.1:3333
+pytest tests/test_integration.py -v
+```
+
+**Without Hardware:**
+
+Integration tests skip automatically when `FLIPPER_PORT` is not set:
+
+```bash
+# Integration tests will show as "SKIPPED"
+pytest tests/test_integration.py -v
+```
+
+**What Integration Tests Verify:**
+- Real serial communication at 230400 baud
+- File write/read operations with actual device I/O
+- Filesystem metadata retrieval (stat, exists)
+- File cleanup and error handling
+- Network connection compatibility (tcp:// URLs)
 
 ### Code Formatting and Linting
 
