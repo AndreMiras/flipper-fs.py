@@ -79,13 +79,16 @@ class SerialCLI:
         start_time = time.time()
 
         while time.time() - start_time < timeout:
-            if self.serial.in_waiting:
-                chunk = self.serial.read(self.serial.in_waiting)
+            # Try to read up to 4096 bytes (will return less if not available)
+            chunk = self.serial.read(min(4096, max(1, self.serial.in_waiting or 1)))
+            if chunk:
                 response += chunk
 
+                # Exit early if prompt marker detected
                 if self.PROMPT in response:
                     break
-            time.sleep(0.05)
+            else:
+                time.sleep(0.01)  # Short sleep if no data
 
         decoded = response.decode("utf-8", errors="replace")
         self.logger.debug(f"Response: {decoded[:100]}...")
@@ -99,15 +102,21 @@ class SerialCLI:
         self.serial.flush()
 
     def read_available(self, timeout: float = 1) -> bytes:
-        """Read all available data within timeout."""
+        """Read all available data within timeout, exits early if prompt detected."""
         data = b""
         start_time = time.time()
 
         while time.time() - start_time < timeout:
-            if self.serial.in_waiting:
-                data += self.serial.read(self.serial.in_waiting)
+            # Try to read up to 4096 bytes (will return less if not available)
+            chunk = self.serial.read(min(4096, max(1, self.serial.in_waiting or 1)))
+            if chunk:
+                data += chunk
+
+                # Exit early if prompt marker detected
+                if self.PROMPT in data:
+                    break
             else:
-                time.sleep(0.05)
+                time.sleep(0.01)  # Short sleep if no data
 
         return data
 

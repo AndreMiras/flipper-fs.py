@@ -102,8 +102,8 @@ class FlipperStorage:
         self.cli.send_raw(b"\x03")
         time.sleep(0.5)  # Wait for write to complete
 
-        # Read response
-        response = self.cli.read_available(timeout=2)
+        # Read response (reduced timeout since prompt detection exits early)
+        response = self.cli.read_available(timeout=1)
         decoded = response.decode("utf-8", errors="replace")
 
         if "Error" in decoded:
