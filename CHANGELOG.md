@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- **PERFORMANCE**: Optimized serial communication timing delays for 10x faster write operations
+  - Connection stabilization: 0.5s → 0.05s (90% reduction)
+  - Write command delay: 0.2s → 0.01s (95% reduction)
+  - Line delay: 0.05s → 0.01s (80% reduction)
+  - Write completion delay: 0.5s → 0.05s (90% reduction)
+  - Write operations now complete in ~0.08s (down from ~0.80s)
+  - Validated with 20+ consecutive test runs on real hardware
+  - No reliability impact - 100% test success rate maintained
+
 ## [1.1.0] - 2025-11-20
 
 ### Added

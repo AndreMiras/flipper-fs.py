@@ -90,19 +90,19 @@ class FlipperStorage:
 
         # Start write command
         self.cli.send_raw(f"storage write {file_path}\r".encode())
-        time.sleep(0.2)  # Critical delay after write command
+        time.sleep(0.01)  # Write command delay
 
         # Send content line by line
         for line in content.split("\n"):
             if line:  # Skip empty lines
                 self.cli.send_raw(f"{line}\r\n".encode())
-                time.sleep(0.05)  # Delay between lines
+                time.sleep(0.01)  # Line delay
 
         # Send Ctrl+C to finish
         self.cli.send_raw(b"\x03")
-        time.sleep(0.5)  # Wait for write to complete
+        time.sleep(0.05)  # Write completion delay
 
-        # Read response (reduced timeout since prompt detection exits early)
+        # Read response
         response = self.cli.read_available(timeout=1)
         decoded = response.decode("utf-8", errors="replace")
 

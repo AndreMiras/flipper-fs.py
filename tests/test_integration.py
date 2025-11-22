@@ -40,20 +40,29 @@ def test_write_read_cycle(flipper_port):
 
     try:
         with FlipperStorage(port=flipper_port) as storage:
-            # Write test file
+            # Measure write operation
+            start = time.time()
             storage.write(test_path, test_content)
+            write_time = time.time() - start
+            print(f"\n⏱️  Write operation: {write_time:.3f}s")
 
             # Verify file exists (with retry for buffer timing issues on long filenames)
+            start = time.time()
             if not storage.exists(test_path):
                 time.sleep(0.5)
                 assert storage.exists(test_path), "File should exist after write"
+            exists_time = time.time() - start
+            print(f"⏱️  Exists check: {exists_time:.3f}s")
 
             # Read content back (with retry for buffer timing issues)
+            start = time.time()
             try:
                 read_content = storage.read(test_path)
             except Exception:
                 time.sleep(0.5)
                 read_content = storage.read(test_path)
+            read_time = time.time() - start
+            print(f"⏱️  Read operation: {read_time:.3f}s")
 
             # Verify content matches (check first line for line ending differences)
             expected_first_line = test_content.split("\n")[0]

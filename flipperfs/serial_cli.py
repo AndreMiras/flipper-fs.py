@@ -55,7 +55,7 @@ class SerialCLI:
                 self.logger.info(f"Connected to {self.port} at {self.baud_rate} baud")
 
             # Common post-connection setup
-            time.sleep(0.5)  # Stabilization delay
+            time.sleep(0.05)  # Connection stabilization
             self.serial.reset_input_buffer()
             self.serial.reset_output_buffer()
 
